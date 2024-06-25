@@ -1,12 +1,8 @@
 import "./App.css";
-import Auth from "./pages/Auth";
+import { Outlet } from "react-router-dom";
 
 function App() {
-	return (
-		<>
-			<Auth></Auth>
-		</>
-	);
+	return <Outlet></Outlet>;
 }
 
 export default App;
