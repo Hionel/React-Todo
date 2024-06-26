@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import Form from "../../../shared/BaseForm";
 
 import useFormInput from "../../../services/customHooks/useFormInput";
+import { useNavigation } from "../../../services/customHooks/useNavigation";
+import { createUser } from "../../../services/authentication-service";
+import { getRegisterFormMap } from "../../../services/maps/formsMaps";
+import { validateForm } from "../../../services/maps/validationsMap";
+
 import AuthNavigation from "../AuthNavigation";
 import BaseCard from "../../../shared/BaseCard";
-
-import { getRegisterFormMap } from "../../../services/maps/formsMaps";
 
 import { IFormProperties } from "../../../interfaces/IFormMap";
 import { IRegisterData } from "../../../interfaces/auth/IFormData";
 import { regiterNavMap } from "../../../services/maps/componentNavigationMaps";
 import { INavigationMap } from "../../../interfaces/INavigationMap";
-import { validateForm } from "../../../services/maps/validationsMap";
 
 const Register: React.FC = () => {
+	const navigate = useNavigation();
 	const { formData, handleInputChange, errors } = useFormInput({
 		email: "",
 		password: "",
@@ -42,6 +45,10 @@ const Register: React.FC = () => {
 	const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		console.log(formData);
+		const userData = await createUser(formData as IRegisterData);
+		if (!userData) return;
+
+		navigate("/homepage");
 	};
 
 	const registerMain = (

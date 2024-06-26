@@ -10,6 +10,7 @@ import Login from "../components/auth/Login/Login";
 import Register from "../components/auth/Register/Register";
 import ResetPassword from "../components/auth/ResetPassword/ResetPassword";
 import ErrorComponent from "../components/ErrorComponent";
+import HomeComponent from "../components/homepage/HomeComponent";
 
 const Routes = createBrowserRouter(
 	createRoutesFromElements(
@@ -25,6 +26,7 @@ const Routes = createBrowserRouter(
 						element={<ResetPassword />}
 					></Route>
 				</Route>
+				<Route path="/homepage" element={<HomeComponent />}></Route>
 				<Route />
 			</Route>
 		</Route>
