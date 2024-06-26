@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Form from "../../../shared/BaseForm";
 
 import useFormInput from "../../../services/customHooks/useFormInput";
 import { useNavigation } from "../../../services/customHooks/useNavigation";
 import { createUserAuthentication } from "../../../services/authentication-service";
 import { getRegisterFormMap } from "../../../services/maps/formsMaps";
-import { validateForm } from "../../../services/maps/validationsMap";
 
 import AuthNavigation from "../AuthNavigation";
 import BaseCard from "../../../shared/BaseCard";
@@ -17,7 +16,7 @@ import { INavigationMap } from "../../../interfaces/INavigationMap";
 
 const Register: React.FC = () => {
 	const navigate = useNavigation();
-	const { formData, handleInputChange, errors } = useFormInput({
+	const { formData, handleInputChange, errors, formValidity } = useFormInput({
 		email: "",
 		password: "",
 		confirmPassword: "",
@@ -26,8 +25,6 @@ const Register: React.FC = () => {
 		age: 0,
 	});
 
-	const [formValidity, setFormValidity] = useState<boolean>(false);
-
 	const pageTitle = "Register";
 	const componentNavigation: INavigationMap[] = regiterNavMap;
 	const registerFormMap: IFormProperties[] = getRegisterFormMap(
@@ -35,12 +32,6 @@ const Register: React.FC = () => {
 		handleInputChange,
 		errors
 	);
-
-	useEffect(() => {
-		// console.log("Use effect triggered");
-		const isFormValid = validateForm(errors, formData);
-		setFormValidity(isFormValid);
-	}, [errors, formData]);
 
 	const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

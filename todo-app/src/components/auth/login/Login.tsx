@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Form from "../../../shared/BaseForm";
 import BaseCard from "../../../shared/BaseCard";
 import AuthNavigation from "../AuthNavigation";
@@ -11,18 +11,16 @@ import { IFormProperties } from "../../../interfaces/IFormMap";
 import { INavigationMap } from "../../../interfaces/INavigationMap";
 
 import useFormInput from "../../../services/customHooks/useFormInput";
-import { validateForm } from "../../../services/maps/validationsMap";
 
 import { signIn } from "../../../services/authentication-service";
 import { useNavigation } from "../../../services/customHooks/useNavigation";
 
 const Login: React.FC = () => {
 	const navigate = useNavigation();
-	const { formData, handleInputChange, errors } = useFormInput({
+	const { formData, handleInputChange, errors, formValidity } = useFormInput({
 		email: "",
 		password: "",
 	});
-	const [formValidity, setFormValidity] = useState<boolean>(false);
 
 	const pageTitle = "Login";
 	const componentNavigation: INavigationMap[] = loginNavMap;
@@ -31,12 +29,6 @@ const Login: React.FC = () => {
 		handleInputChange,
 		errors
 	);
-
-	useEffect(() => {
-		const isFormValid = validateForm(errors, formData);
-		setFormValidity(isFormValid);
-	}, [errors, formData]);
-
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const userData = await signIn(formData as ILoginData);

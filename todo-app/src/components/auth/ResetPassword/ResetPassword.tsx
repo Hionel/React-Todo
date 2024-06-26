@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Form from "../../../shared/BaseForm";
 
 import useFormInput from "../../../services/customHooks/useFormInput";
@@ -11,15 +11,13 @@ import { IFormProperties } from "../../../interfaces/IFormMap";
 import { getResetPasswordFormMap } from "../../../services/maps/formsMaps";
 import { IResetPasswordData } from "../../../interfaces/auth/IFormData";
 import { INavigationMap } from "../../../interfaces/INavigationMap";
-import { validateForm } from "../../../services/maps/validationsMap";
 
 const ResetPassword: React.FC = () => {
-	const { formData, handleInputChange, errors } = useFormInput({
+	const { formData, handleInputChange, errors, formValidity } = useFormInput({
 		email: "",
 		password: "",
 		confirmPassword: "",
 	});
-	const [formValidity, setFormValidity] = React.useState<boolean>(false);
 
 	const pageTitle = "Reset Your Password";
 	const componentNavigation: INavigationMap[] = resetPasswordNavMap;
@@ -28,11 +26,6 @@ const ResetPassword: React.FC = () => {
 		handleInputChange,
 		errors
 	);
-
-	useEffect(() => {
-		const isFormValid = validateForm(errors, formData);
-		setFormValidity(isFormValid);
-	}, [errors, formData]);
 
 	const handleReset = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

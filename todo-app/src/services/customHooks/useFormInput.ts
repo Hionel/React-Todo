@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	ILoginData,
 	IRegisterData,
@@ -6,21 +6,23 @@ import {
 } from "../../interfaces/auth/IFormData";
 import {
 	IValidationFormState,
-	// IValidationMessage,
+	validateForm,
 	rules as validationRules,
 } from "../maps/validationsMap";
 
-interface IUseForm {
+interface IUseFormResponse {
 	formData: ILoginData | IRegisterData | IResetPasswordData;
 	handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	errors: IValidationFormState;
+	formValidity: boolean;
 }
 
 const useFormInput = (
 	initialState: ILoginData | IRegisterData | IResetPasswordData
-): IUseForm => {
+): IUseFormResponse => {
 	const [formData, setFormData] = useState(initialState);
 	const [errors, setErrors] = useState({} as IValidationFormState);
+	const [formValidity, setFormValidity] = useState<boolean>(false);
 
 	const validateField = (id: string, value: string) => {
 		if (validationRules[id as keyof typeof validationRules]) {
@@ -43,6 +45,11 @@ const useFormInput = (
 		}
 	};
 
+	useEffect(() => {
+		const isFormValid = validateForm(errors, formData);
+		setFormValidity(isFormValid);
+	}, [errors, formData]);
+
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { id, value } = event.target;
 
@@ -53,7 +60,7 @@ const useFormInput = (
 		validateField(id, value);
 	};
 
-	return { formData, handleInputChange, errors };
+	return { formData, handleInputChange, errors, formValidity };
 };
 
 export default useFormInput;
