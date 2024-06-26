@@ -23,8 +23,6 @@ const useFormInput = (
 	const [errors, setErrors] = useState({} as IValidationFormState);
 
 	const validateField = (id: string, value: string) => {
-		console.log(id, value);
-
 		if (validationRules[id as keyof typeof validationRules]) {
 			let validationResult;
 			if (id === "confirmPassword") {

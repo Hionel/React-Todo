@@ -4,22 +4,24 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 } from "firebase/auth";
+import { createUserDocument } from "./users-service";
+
 import { ILoginData, IRegisterData } from "../interfaces/auth/IFormData";
 import { FirebaseError } from "firebase/app";
 
-export const createUser = async (userData: IRegisterData) => {
+export const createUserAuthentication = async (userData: IRegisterData) => {
 	try {
 		const userCredential = await createUserWithEmailAndPassword(
 			firebaseAuth,
 			userData.email,
 			userData.password
 		);
-
 		const user = userCredential.user;
+
 		if (!user) throw new Error("Something went wrong while creating the user!");
 
+		await createUserDocument(userData);
 		return user;
-		// DONT FORGET TO ADD THE USER DATA TO THE FUTURE FIRESTORE USERS' COLLECTION
 	} catch (error) {
 		if (error instanceof FirebaseError) {
 			const errorCode = error.code;

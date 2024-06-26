@@ -3,7 +3,7 @@ import Form from "../../../shared/BaseForm";
 
 import useFormInput from "../../../services/customHooks/useFormInput";
 import { useNavigation } from "../../../services/customHooks/useNavigation";
-import { createUser } from "../../../services/authentication-service";
+import { createUserAuthentication } from "../../../services/authentication-service";
 import { getRegisterFormMap } from "../../../services/maps/formsMaps";
 import { validateForm } from "../../../services/maps/validationsMap";
 
@@ -45,7 +45,7 @@ const Register: React.FC = () => {
 	const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		console.log(formData);
-		const userData = await createUser(formData as IRegisterData);
+		const userData = await createUserAuthentication(formData as IRegisterData);
 		if (!userData) return;
 
 		navigate("/homepage");
