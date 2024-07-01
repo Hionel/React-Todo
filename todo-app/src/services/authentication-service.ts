@@ -47,6 +47,7 @@ export const signIn = async (userData: ILoginData) => {
 		if (!user) throw new Error("User Not Found !");
 
 		console.log("User Sign In Successfully !");
+		console.log(user);
 		return user;
 	} catch (error) {
 		if (error instanceof FirebaseError) {

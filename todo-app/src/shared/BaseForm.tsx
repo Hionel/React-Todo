@@ -10,10 +10,7 @@ const Form: React.FC<IFormMap> = ({
 	onSubmit,
 	buttonText,
 	formValidationState,
-	// validationState,
 }) => {
-	// console.log(formInputsMap);
-
 	return (
 		<div className="form_wrapper displayFlex">
 			<form className="form_style displayFlex" onSubmit={onSubmit}>

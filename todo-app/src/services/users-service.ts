@@ -15,8 +15,6 @@ export const createUserDocument = async (userData: IRegisterData) => {
 
 		if (!docRef)
 			throw new Error("Something went wrong while creating the user document!");
-
-		console.log("Document written with ID: ", docRef.id);
 	} catch (e) {
 		console.error("Error adding document: ", e);
 	}

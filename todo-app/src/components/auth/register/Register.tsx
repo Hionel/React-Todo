@@ -35,8 +35,8 @@ const Register: React.FC = () => {
 
 	const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log(formData);
 		const userData = await createUserAuthentication(formData as IRegisterData);
+		console.log(userData);
 		if (!userData) return;
 
 		navigate("/homepage");
