@@ -42,21 +42,21 @@ const Register: React.FC = () => {
 		navigate("/homepage");
 	};
 
-	const registerMain = (
-		<Form
-			buttonText="Register"
-			formInputsMap={registerFormMap}
-			onSubmit={handleRegister}
-			formValidationState={formValidity}
-		/>
-	);
-
 	return (
-		<BaseCard
-			cardTitle={pageTitle}
-			cardMain={registerMain}
-			cardActions={<AuthNavigation links={componentNavigation} />}
-		></BaseCard>
+		<BaseCard cardTitle={pageTitle}>
+			<section className="card_main_container">
+				<Form
+					buttonText="Register"
+					formInputsMap={registerFormMap}
+					onSubmit={handleRegister}
+					formValidationState={formValidity}
+				/>
+			</section>
+			<section className="card_action_container displayFlex">
+				<AuthNavigation links={componentNavigation} />
+			</section>
+			ß
+		</BaseCard>
 	);
 };
 

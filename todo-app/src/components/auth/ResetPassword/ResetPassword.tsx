@@ -32,21 +32,20 @@ const ResetPassword: React.FC = () => {
 		console.log(formData);
 	};
 
-	const resetPasswordMain = (
-		<Form
-			buttonText="Send Reset Link"
-			formInputsMap={resetPasswordFormMap}
-			onSubmit={handleReset}
-			formValidationState={formValidity}
-		/>
-	);
-
 	return (
-		<BaseCard
-			cardTitle={pageTitle}
-			cardMain={resetPasswordMain}
-			cardActions={<AuthNavigation links={componentNavigation} />}
-		></BaseCard>
+		<BaseCard cardTitle={pageTitle}>
+			<section className="card_main_container">
+				<Form
+					buttonText="Login"
+					formInputsMap={resetPasswordFormMap}
+					onSubmit={handleReset}
+					formValidationState={formValidity}
+				/>
+			</section>
+			<section className="card_action_container displayFlex">
+				<AuthNavigation links={componentNavigation} />
+			</section>
+		</BaseCard>
 	);
 };
 

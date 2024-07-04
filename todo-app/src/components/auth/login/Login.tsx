@@ -37,21 +37,20 @@ const Login: React.FC = () => {
 		navigate("/homepage");
 	};
 
-	const loginMain = (
-		<Form
-			buttonText="Login"
-			formInputsMap={loginFormMap}
-			onSubmit={handleLogin}
-			formValidationState={formValidity}
-		/>
-	);
-
 	return (
-		<BaseCard
-			cardTitle={pageTitle}
-			cardMain={loginMain}
-			cardActions={<AuthNavigation links={componentNavigation} />}
-		></BaseCard>
+		<BaseCard cardTitle={pageTitle}>
+			<section className="card_main_container">
+				<Form
+					buttonText="Login"
+					formInputsMap={loginFormMap}
+					onSubmit={handleLogin}
+					formValidationState={formValidity}
+				/>
+			</section>
+			<section className="card_action_container displayFlex">
+				<AuthNavigation links={componentNavigation} />
+			</section>
+		</BaseCard>
 	);
 };
 
