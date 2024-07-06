@@ -5,14 +5,8 @@ import Button from "@mui/material/Button";
 
 import { IFormMap } from "../interfaces/IFormMap";
 
-const Form: React.FC<IFormMap> = ({
-	formInputsMap,
-	onSubmit,
-	buttonText,
-	formValidationState,
-	// validationState,
-}) => {
-	// console.log(formInputsMap);
+const Form: React.FC<IFormMap> = (props) => {
+	const { formInputsMap, onSubmit, buttonText, formValidationState } = props;
 
 	return (
 		<div className="form_wrapper displayFlex">
