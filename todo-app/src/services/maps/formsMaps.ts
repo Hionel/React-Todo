@@ -7,15 +7,15 @@ import { IValidationFormState, IValidationMessage } from "./validationsMap";
 
 export const getLoginFormMap = (
 	formData: ILoginData,
-	handleInputChange: IFormProperties["onChange"],
-	errors: IValidationFormState
+	handleInputChange: IFormProperties["onChange"]
+	// errors: IValidationFormState
 ): IFormProperties[] => {
-	const emailState: IValidationMessage = errors.email
-		? errors.email
-		: { success: true, message: "" };
-	const passwordState = errors.password
-		? errors.password
-		: { success: true, message: "" };
+	// const emailState: IValidationMessage = errors.email
+	// 	? errors.email
+	// 	: { success: true, message: "" };
+	// const passwordState = errors.password
+	// 	? errors.password
+	// 	: { success: true, message: "" };
 	return [
 		{
 			id: "email",
@@ -23,8 +23,8 @@ export const getLoginFormMap = (
 			label: "Email",
 			value: formData.email,
 			onChange: handleInputChange,
-			error: emailState.success,
-			hintText: emailState.message,
+			// error: emailState.success,
+			// hintText: emailState.message,
 		},
 		{
 			id: "password",
@@ -32,8 +32,8 @@ export const getLoginFormMap = (
 			label: "Password",
 			value: formData.password,
 			onChange: handleInputChange,
-			error: passwordState.success,
-			hintText: passwordState.message,
+			// error: passwordState.success,
+			// hintText: passwordState.message,
 		},
 	];
 };

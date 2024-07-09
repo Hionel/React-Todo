@@ -4,7 +4,7 @@ export interface IFormMap {
 	formInputsMap: IFormProperties[];
 	onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 	buttonText: string;
-	formValidationState: boolean;
+	formValidationState?: boolean;
 }
 
 export interface IFormProperties {

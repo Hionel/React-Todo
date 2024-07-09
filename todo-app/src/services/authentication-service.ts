@@ -54,8 +54,10 @@ export const signIn = async (userData: ILoginData) => {
 			const errorMessage = error.message;
 			// add notification
 			console.log(errorCode, errorMessage);
+			return error;
 		} else {
 			console.log("An unexpected error occurred", error);
+			return error;
 		}
 	}
 };

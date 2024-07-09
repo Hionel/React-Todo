@@ -23,7 +23,7 @@ const Form: React.FC<IFormMap> = (props) => {
 								value={value}
 								onChange={onChange}
 								className="form_input"
-								error={!error}
+								error={error ? !error : false}
 								helperText={hintText}
 							/>
 						);
@@ -36,7 +36,7 @@ const Form: React.FC<IFormMap> = (props) => {
 					color="primary"
 					variant="contained"
 					size="medium"
-					disabled={!formValidationState}
+					disabled={formValidationState ? !formValidationState : false}
 				>
 					{buttonText}
 				</Button>
