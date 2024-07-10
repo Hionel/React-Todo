@@ -1,11 +1,10 @@
 import useFormInput from "../../../services/customHooks/useFormInput";
-import { useState } from "react";
 import { useNavigation } from "../../../services/customHooks/useNavigation";
 import { signIn } from "../../../services/authentication-service";
 
 import Form from "../../../shared/BaseForm";
 import BaseCard from "../../../shared/BaseCard";
-import BaseSnackbar from "../../../shared/BaseSnackbar";
+// import BaseSnackbar from "../../../shared/BaseSnackbar";
 import AuthNavigation from "../AuthNavigation";
 
 import { loginNavMap } from "../../../services/maps/componentNavigationMaps";
@@ -14,7 +13,8 @@ import { getLoginFormMap } from "../../../services/maps/formsMaps";
 import { ILoginData } from "../../../interfaces/auth/IFormData";
 import { IFormProperties } from "../../../interfaces/IFormMap";
 import { INavigationMap } from "../../../interfaces/INavigationMap";
-import ISnackbar, { Type } from "../../../interfaces/ISnackbar";
+import { Type } from "../../../interfaces/ISnackbar";
+import { showToaster } from "../../../services/toaster-service";
 
 // interface ILoginState {
 // 	formData: ILoginData;
@@ -29,13 +29,7 @@ const Login: React.FC = () => {
 		password: "",
 	});
 
-	const [snackbarState, setSnackbarState] = useState<ISnackbar>({
-		isOpen: false,
-		type: Type.info,
-		message: "",
-	});
-
-	const [isPending, setIsPending] = useState<boolean>(false);
+	// const [isPending, setIsPending] = useState<boolean>(false);
 
 	const componentNavigation: INavigationMap[] = loginNavMap;
 	const loginFormMap: IFormProperties[] = getLoginFormMap(
@@ -45,37 +39,21 @@ const Login: React.FC = () => {
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			setIsPending(true);
+			// setIsPending(true);
 			const data = await signIn(formData as ILoginData);
 			if (data instanceof Error) throw data;
-			setSnackbarState({
-				isOpen: true,
-				type: Type.success,
-				message: "Login successful!",
-			});
-			setIsPending(false);
+			showToaster(Type.success, "Login successful!");
+			// setIsPending(false);
 			navigate("/homepage");
 		} catch (error) {
 			console.log(error);
-			setIsPending(false);
-			setSnackbarState({
-				isOpen: true,
-				type: Type.error,
-				message: "Invalid credentials. Please try again.",
-			});
+			// setIsPending(false);
+			showToaster(Type.error, "Invalid Credentials!");
 		}
 	};
 
 	return (
 		<>
-			{!isPending && (
-				<BaseSnackbar
-					isOpen={snackbarState.isOpen}
-					type={snackbarState.type}
-					message={snackbarState.message}
-				></BaseSnackbar>
-			)}
-
 			<BaseCard cardTitle={pageTitle}>
 				<section className="card_main_container">
 					<Form
