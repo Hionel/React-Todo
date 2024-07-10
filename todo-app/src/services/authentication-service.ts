@@ -20,10 +20,8 @@ export const createUserAuthentication = async (userData: IRegisterData) => {
 		);
 		const user = userCredential.user;
 
-		if (!user) throw new Error("Something went wrong while creating the user!");
-
-		showToaster(Type.success, "Created user successfuly!");
 		await createUserDocument(userData);
+		showToaster(Type.success, "Created user successfuly!");
 		return user;
 	} catch (error) {
 		let errorMessage: string;
@@ -49,7 +47,8 @@ export const signIn = async (userData: ILoginData) => {
 		);
 		const user = userCredential.user;
 
-		console.log("User Sign In Successfully !");
+		showToaster(Type.success, "Login successfuly!");
+
 		return user;
 	} catch (error) {
 		console.log(error instanceof FirebaseError);

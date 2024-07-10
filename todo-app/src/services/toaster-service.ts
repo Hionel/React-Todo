@@ -1,6 +1,5 @@
 import { toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import getErrorMessage from "./firebase-error-messages";
 export default interface IToasterParams {
 	type: Type;
 	message: string;
@@ -21,10 +20,6 @@ export const showToaster = (
 	duration: number = 5000,
 	pauseOnHover: boolean = true
 ) => {
-	if (Type.error === type) {
-		message = getErrorMessage(message);
-	}
-
 	toast[type](`${message}`, {
 		position: "top-right",
 		autoClose: duration,
