@@ -5,6 +5,8 @@ import {
 	signOut,
 } from "firebase/auth";
 import { createUserDocument } from "./users-service";
+import { showToaster, Type } from "./toaster-service";
+import getErrorMessage from "./firebase-error-messages";
 
 import { ILoginData, IRegisterData } from "../interfaces/auth/IFormData";
 import { FirebaseError } from "firebase/app";
@@ -20,17 +22,20 @@ export const createUserAuthentication = async (userData: IRegisterData) => {
 
 		if (!user) throw new Error("Something went wrong while creating the user!");
 
+		showToaster(Type.success, "Created user successfuly!");
 		await createUserDocument(userData);
 		return user;
 	} catch (error) {
+		let errorMessage: string;
 		if (error instanceof FirebaseError) {
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			// add notification
-			console.log(errorCode, errorMessage);
+			errorMessage = getErrorMessage(error.code);
+			// console.log(errorCode, errorMessage);
 		} else {
-			console.log("An unexpected error occurred", error);
+			errorMessage = "An unexpected error occurred";
+			// console.log("An unexpected error occurred", error);
 		}
+		showToaster(Type.error, errorMessage);
+		return error;
 	}
 };
 
@@ -44,21 +49,19 @@ export const signIn = async (userData: ILoginData) => {
 		);
 		const user = userCredential.user;
 
-		if (!user) throw new Error("User Not Found !");
-
 		console.log("User Sign In Successfully !");
 		return user;
 	} catch (error) {
+		console.log(error instanceof FirebaseError);
+		let errorMessage: string;
 		if (error instanceof FirebaseError) {
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			// add notification
-			console.log(errorCode, errorMessage);
-			return error;
+			console.log(error.code);
+			errorMessage = getErrorMessage(error.code);
 		} else {
-			console.log("An unexpected error occurred", error);
-			return error;
+			errorMessage = "An unexpected error occurred";
 		}
+		showToaster(Type.error, errorMessage);
+		return error;
 	}
 };
 

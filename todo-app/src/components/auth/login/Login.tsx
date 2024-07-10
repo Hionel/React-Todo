@@ -4,7 +4,6 @@ import { signIn } from "../../../services/authentication-service";
 
 import Form from "../../../shared/BaseForm";
 import BaseCard from "../../../shared/BaseCard";
-// import BaseSnackbar from "../../../shared/BaseSnackbar";
 import AuthNavigation from "../AuthNavigation";
 
 import { loginNavMap } from "../../../services/maps/componentNavigationMaps";
@@ -13,12 +12,6 @@ import { getLoginFormMap } from "../../../services/maps/formsMaps";
 import { ILoginData } from "../../../interfaces/auth/IFormData";
 import { IFormProperties } from "../../../interfaces/IFormMap";
 import { INavigationMap } from "../../../interfaces/INavigationMap";
-import { Type } from "../../../interfaces/ISnackbar";
-import { showToaster } from "../../../services/toaster-service";
-
-// interface ILoginState {
-// 	formData: ILoginData;
-// }
 
 const Login: React.FC = () => {
 	const pageTitle = "Login";
@@ -36,20 +29,11 @@ const Login: React.FC = () => {
 		formData,
 		handleInputChange
 	);
-	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		try {
-			// setIsPending(true);
-			const data = await signIn(formData as ILoginData);
-			if (data instanceof Error) throw data;
-			showToaster(Type.success, "Login successful!");
-			// setIsPending(false);
-			navigate("/homepage");
-		} catch (error) {
-			console.log(error);
-			// setIsPending(false);
-			showToaster(Type.error, "Invalid Credentials!");
-		}
+	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const response = await signIn(formData as ILoginData);
+		if (response instanceof Error) return;
+		navigate("/homepage");
 	};
 
 	return (

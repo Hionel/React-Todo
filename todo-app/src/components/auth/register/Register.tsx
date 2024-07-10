@@ -35,9 +35,8 @@ const Register: React.FC = () => {
 
 	const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log(formData);
-		const userData = await createUserAuthentication(formData as IRegisterData);
-		if (!userData) return;
+		const response = await createUserAuthentication(formData as IRegisterData);
+		if (!response) return;
 
 		navigate("/homepage");
 	};
@@ -55,7 +54,6 @@ const Register: React.FC = () => {
 			<section className="card_action_container displayFlex">
 				<AuthNavigation links={componentNavigation} />
 			</section>
-			ß
 		</BaseCard>
 	);
 };
