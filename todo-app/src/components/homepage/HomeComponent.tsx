@@ -1,28 +1,42 @@
 import React from "react";
 import { signUserOut } from "../../services/authentication-service";
 import { useNavigation } from "../../services/customHooks/useNavigation";
-
-// interface HomeComponentProps {
-// 	username: string;
-// 	onLogout: () => void;
-// }
+import AppHeader from "../AppHeader";
+import { Outlet } from "react-router-dom";
 
 const HomeComponent: React.FC = () => {
 	const navigate = useNavigation();
+	const pages = [
+		{
+			name: "Create",
+			navigateToPage: () => navigate("/homepage/create"),
+		},
+		{
+			name: "List",
+			navigateToPage: () => navigate("/homepage/list"),
+		},
+	];
 
 	const handleLogout = async () => {
-		console.log("logout");
 		await signUserOut();
 		navigate("/authentication");
 	};
+
+	const handleIconClick = () => {
+		navigate("/homepage");
+	};
+
 	return (
-		<div>
-			<header>
-				<h1>Hello, username!</h1>
-				<button onClick={handleLogout}>Logout</button>
-			</header>
-			<main>{/* Add your main content here */}</main>
-		</div>
+		<>
+			<AppHeader
+				pages={pages}
+				handleIconClick={handleIconClick}
+				handleLogout={handleLogout}
+			></AppHeader>
+			<main>
+				<Outlet />
+			</main>
+		</>
 	);
 };
 
