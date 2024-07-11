@@ -8,11 +8,10 @@ import { getRegisterFormMap } from "../../../services/maps/formsMaps";
 
 import AuthNavigation from "../AuthNavigation";
 import BaseCard from "../../../shared/BaseCard";
-
-import { IFormProperties } from "../../../interfaces/IFormMap";
 import { IRegisterData } from "../../../interfaces/auth/IFormData";
-import { regiterNavMap } from "../../../services/maps/componentNavigationMaps";
+import { IFormProperties } from "../../../interfaces/IFormMap";
 import { INavigationMap } from "../../../interfaces/INavigationMap";
+import { regiterNavMap } from "../../../services/maps/componentNavigationMaps";
 
 const Register: React.FC = () => {
 	const navigate = useNavigation();
@@ -36,7 +35,7 @@ const Register: React.FC = () => {
 	const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const response = await createUserAuthentication(formData as IRegisterData);
-		if (!response) return;
+		if (response instanceof Error) return;
 
 		navigate("/homepage");
 	};
